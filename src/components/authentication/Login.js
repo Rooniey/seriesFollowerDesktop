@@ -12,7 +12,7 @@ export class LoginForm extends Component {
         };
     }
 
-    handleClick = async (event) => {
+    login = async (event) => {
         event.preventDefault();
         const payload = JSON.stringify({
             email: this.state.email,
@@ -29,6 +29,7 @@ export class LoginForm extends Component {
                     body: payload
                 });
             if (!response.ok) throw new Error('Something went wrong...');
+
             const data = await response.json();
             localStorage.setItem('token', data.token);
 
@@ -45,7 +46,7 @@ export class LoginForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleClick} className="login-form">
+            <form onSubmit={this.login} className="login-form">
                 <div className="login-fields">
                     <TextField
                         label="Email"
@@ -61,7 +62,7 @@ export class LoginForm extends Component {
                         value={this.state.password}
                         onChange={this.handleChange('password')}/>
                 </div>
-                <Button variant="contained" size="medium" color="primary" className="login-button">
+                <Button type="submit" variant="contained" size="medium" color="primary" className="login-button">
                     Log in
                 </Button>
             </form>
